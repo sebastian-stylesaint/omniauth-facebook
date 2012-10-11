@@ -11,8 +11,8 @@ module OmniAuth
       DEFAULT_SCOPE = 'email'
 
       option :client_options, {
-        :site => 'https://graph.facebook.com',
-        :token_url => '/oauth/access_token'
+        :site => 'https://m.facebook.com',
+        :token_url => '/dialog/oauth'
       }
 
       option :token_params, {
