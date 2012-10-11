@@ -5,7 +5,7 @@ require 'rack/utils'
 
 module OmniAuth
   module Strategies
-    class Facebook < OmniAuth::Strategies::OAuth2
+    class Macebook < OmniAuth::Strategies::OAuth2
       class NoAuthorizationCodeError < StandardError; end
 
       DEFAULT_SCOPE = 'email'

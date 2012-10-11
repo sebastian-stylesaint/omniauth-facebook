@@ -1,5 +1,5 @@
 module OmniAuth
-  module Facebook
+  module Macebook
     VERSION = "1.4.1"
   end
 end
