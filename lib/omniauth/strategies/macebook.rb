@@ -172,6 +172,7 @@ module OmniAuth
       #
       def with_authorization_code!
         if request.params.key?('code')
+          puts "DOING AWESOME SHIT"
           yield
         elsif code_from_signed_request = signed_request && signed_request['code']
           request.params['code'] = code_from_signed_request
