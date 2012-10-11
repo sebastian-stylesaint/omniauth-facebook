@@ -57,6 +57,10 @@ module OmniAuth
         @raw_info ||= access_token.get('/me').parsed || {}
       end
 
+      def mclient
+        ::OAuth2::Client.new(options.client_id, options.client_secret, deep_symbolize(options.client_options).merge(:site => 'https://graph.facebook.com'))
+      end
+
       def build_access_token
         if access_token = request.params["access_token"]
           ::OAuth2::AccessToken.from_hash(
@@ -71,10 +75,17 @@ module OmniAuth
             hash.merge!(access_token_options.merge(:expires_at => hash.delete('expires')))
           )
         else
-          with_authorization_code! { super }.tap do |token|
+          with_authorization_code! { 
+            build_access_token_from_code
+          }.tap do |token|
             token.options.merge!(access_token_options)
           end
         end
+      end
+
+      def build_access_token_from_code
+        verifier = request.params['code']
+        mclient.auth_code.get_token(verifier, {:redirect_uri => callback_url}.merge(token_params.to_hash(:symbolize_keys => true)), deep_symbolize(options.auth_token_params))
       end
 
       def request_phase
@@ -172,7 +183,6 @@ module OmniAuth
       #
       def with_authorization_code!
         if request.params.key?('code')
-          puts "DOING AWESOME SHIT"
           yield
         elsif code_from_signed_request = signed_request && signed_request['code']
           request.params['code'] = code_from_signed_request
