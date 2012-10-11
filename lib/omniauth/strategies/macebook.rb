@@ -12,7 +12,8 @@ module OmniAuth
 
       option :client_options, {
         :site => 'https://m.facebook.com',
-        :authorize_url => '/dialog/oauth'
+        :token_url => '/oauth/access_token/'
+        :authorize_url => '/dialog/oauth/'
       }
 
       option :token_params, {
