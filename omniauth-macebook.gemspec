@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path('../lib', __FILE__)
-require 'omniauth/facebook/version'
+require 'omniauth/macebook/version'
 
 Gem::Specification.new do |s|
-  s.name     = 'omniauth-facebook'
-  s.version  = OmniAuth::Facebook::VERSION
+  s.name     = 'omniauth-macebook'
+  s.version  = OmniAuth::Macebook::VERSION
   s.authors  = ['Mark Dodwell']
   s.email    = ['mark@mkdynamic.co.uk']
-  s.summary  = 'Facebook strategy for OmniAuth'
-  s.homepage = 'https://github.com/mkdynamic/omniauth-facebook'
+  s.summary  = 'Macebook strategy for OmniAuth'
+  s.homepage = 'https://github.com/mkdynamic/omniauth-macebook'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
