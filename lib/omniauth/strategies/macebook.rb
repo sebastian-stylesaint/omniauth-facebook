@@ -87,8 +87,9 @@ module OmniAuth
 
       def build_access_token_from_code
         verifier = request.params['code']
+        overrides = {:redirect_uri => callback_url, 'client_secret' => nil}.merge(token_params.to_hash(:symbolize_keys => true))
         begin
-          mclient.auth_code.get_token(verifier, {:redirect_uri => callback_url, :client_secret => nil}.merge(token_params.to_hash(:symbolize_keys => true)), deep_symbolize(options.auth_token_params))
+          mclient.auth_code.get_token(verifier, overrides, deep_symbolize(options.auth_token_params))
         rescue => e
           puts e.to_s
         end
