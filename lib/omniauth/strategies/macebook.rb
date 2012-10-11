@@ -57,10 +57,6 @@ module OmniAuth
         @raw_info ||= access_token.get('/me').parsed || {}
       end
 
-      def mclient
-        ::OAuth2::Client.new(options.client_id, options.client_secret, deep_symbolize(options.client_options).merge(:site => 'https://graph.facebook.com'))
-      end
-
       def build_access_token
         if access_token = request.params["access_token"]
           ::OAuth2::AccessToken.from_hash(
@@ -83,9 +79,13 @@ module OmniAuth
         end
       end
 
+      def mclient
+        ::OAuth2::Client.new(options.client_id, options.client_secret, deep_symbolize(options.client_options).merge(:site => 'https://graph.facebook.com'))
+      end
+
       def build_access_token_from_code
         verifier = request.params['code']
-        mclient.auth_code.get_token(verifier, {:redirect_uri => callback_url}.merge(token_params.to_hash(:symbolize_keys => true)), deep_symbolize(options.auth_token_params))
+        mclient.auth_code.get_token(verifier, {:redirect_uri => callback_url}.merge(token_params.to_hash(:symbolize_keys => true)), deep_symbolize(options.auth_token_params || {}))
       end
 
       def request_phase
